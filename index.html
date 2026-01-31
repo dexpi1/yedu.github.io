@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Mukta 💖</title>
+    <title>For Mukta hehehehhe</title>
     <style>
         :root {
             --primary: #ff4d6d;
@@ -97,7 +97,10 @@
             font-size: 1rem; color: #800020; border-radius: 60px;
             cursor: pointer; font-weight: bold; text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
         }
+        
+        button:active { transform: scale(0.95); }
 
         .balloon {
             position: absolute; width: 50px; height: 70px;
@@ -118,7 +121,6 @@
             100% { transform: scale(0); opacity: 0; }
         }
 
-        /* Confetti Styles */
         .confetti {
             position: absolute;
             width: 10px; height: 10px;
@@ -137,13 +139,18 @@
             padding: 10px 20px; border-radius: 20px; z-index: 100;
         }
 
-        /* Video Container Styling */
         .video-wrapper {
             margin-top: 20px;
             width: 100%;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        #audio-container {
+            position: absolute;
+            top: -1000px; /* Moves it off-screen but keeps it active */
+            left: -1000px;
         }
 
         @media (max-width: 600px) {
@@ -167,9 +174,9 @@
 
     <div id="page2" class="page">
         <div class="glass-card">
-            <div class="big-text">Happy Birthday!</div>
-            <div class="love-text">I LOVE YOU</div>
-            <p style="color: white; opacity: 0.8;">Pop 5 balloons for your final gift...</p>
+            <div class="big-text">Happyyy Birthdayyy Yeduuuu!</div>
+            <div class="love-text">I LOVE YOU SO SO SO MUCH</div>
+            <p style="color: white; opacity: 0.8;">Pop 5 balloons for your final(hmmm lets see) gift...</p>
         </div>
         <div id="audio-container"></div>
     </div>
@@ -177,9 +184,7 @@
     <div id="page3" class="page">
         <div class="glass-card">
             <div class="kiss-text">Now give me 19 kisses for ur 19th birthday (pls dont be mad)</div>
-            
             <div id="video-container" class="video-wrapper"></div>
-            
             <div class="love-text" style="font-size: 2rem; margin-top: 20px;">💖💖💖</div>
         </div>
     </div>
@@ -191,15 +196,23 @@
         function startVibe() {
             transition('page1', 'page2');
             document.getElementById('pop-counter').style.display = 'block';
-            spawnBalloons();
-            // Start Page 2 background music (hidden)
+            
+            // Start Page 2 background music with improved visibility and permissions
             const audioBox = document.getElementById('audio-container');
-            audioBox.innerHTML = `<iframe width="0" height="0" src="https://www.youtube.com/embed/QJO3ROT-A4E?autoplay=1&loop=1&playlist=QJO3ROT-A4E" frameborder="0" allow="autoplay"></iframe>`;
+            audioBox.innerHTML = `
+                <iframe 
+                    width="1" 
+                    height="1" 
+                    src="https://www.youtube.com/embed/QJO3ROT-A4E?autoplay=1&loop=1&playlist=QJO3ROT-A4E" 
+                    frameborder="0" 
+                    allow="autoplay">
+                </iframe>`;
+            
+            spawnBalloons();
         }
 
         function showFinalVideo(id) {
             const container = document.getElementById('video-container');
-            // Setting a responsive height/width for the video
             container.innerHTML = `
                 <iframe width="100%" height="200" 
                 src="https://www.youtube.com/embed/${id}?autoplay=1&loop=1&playlist=${id}" 
@@ -250,7 +263,7 @@
                         clearInterval(balloonInterval);
                         setTimeout(() => {
                             document.getElementById('pop-counter').style.display = 'none';
-                            // Stop page 2 audio
+                            // Clear background music before showing final video
                             document.getElementById('audio-container').innerHTML = '';
                             transition('page2', 'page3');
                             createConfetti();
@@ -267,5 +280,7 @@
     </script>
 </body>
 </html>
+
+
 
 
