@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Mukta 😍</title>
+    <title>For Mukta 💖</title>
     <style>
         :root {
             --primary: #ff4d6d;
@@ -12,10 +12,8 @@
         }
 
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
             background: #000;
@@ -101,7 +99,7 @@
         }
 
         .balloon {
-            position: absolute; width: 50px; height: 70px;
+            position: absolute; width: 60px; height: 80px;
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer; z-index: 5;
             animation: floatUp var(--duration) linear infinite;
@@ -135,7 +133,7 @@
 <body>
 
     <div class="bg-canvas"></div>
-    <div id="pop-counter" style="display:none">Balloons Popped: <span id="count">0</span>/5</div>
+    <div id="pop-counter" style="display:none">Pops: <span id="count">0</span>/5</div>
 
     <div id="page1" class="page active">
         <div class="glass-card">
@@ -146,15 +144,15 @@
 
     <div id="page2" class="page">
         <div class="glass-card">
-            <div class="big-text">Happyyyyy Birthdayyyy Yeduu!</div>
+            <div class="big-text">Happy Birthday!</div>
             <div class="love-text">I LOVE YOU</div>
-            <p style="color: white; opacity: 0.8;">Pop 5 balloons for your final(worst case final) gift...</p>
+            <p style="color: white; opacity: 0.8;">Pop 5 balloons for your final gift...</p>
         </div>
     </div>
 
     <div id="page3" class="page">
         <div class="glass-card">
-            <div class="kiss-text">Now give me 19 kisses for ur 19th birthday....hehe(dont be mad)</div>
+            <div class="kiss-text">Now give me 19 kisses for ur 19th birthday 💋</div>
             <div class="love-text" style="font-size: 3rem; margin-top: 30px;">💖💖💖</div>
         </div>
     </div>
@@ -163,14 +161,15 @@
 
     <script>
         let pops = 0;
-        const popSound = new Audio('https://www.soundjay.com/buttons/sounds/button-10.mp3');
+        // This is a direct MP3 link to the Pixabay Pop sound
+        const popSound = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_513735607b.mp3');
         let balloonInterval;
 
         function startVibe() {
             transition('page1', 'page2');
             document.getElementById('pop-counter').style.display = 'block';
             spawnBalloons();
-            playMusic("QJO3ROT-A4E"); // Background music
+            playMusic("QJO3ROT-A4E"); 
         }
 
         function playMusic(id) {
@@ -200,12 +199,12 @@
                 const b = document.createElement('div');
                 b.className = 'balloon';
                 b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                b.style.left = Math.random() * 85 + 'vw';
-                b.style.setProperty('--duration', (4 + Math.random() * 3) + 's');
+                b.style.left = Math.random() * 80 + 'vw';
+                b.style.setProperty('--duration', (3 + Math.random() * 3) + 's');
                 
                 b.onclick = function() {
                     popSound.currentTime = 0;
-                    popSound.play();
+                    popSound.play().catch(e => console.log("Sound error: ", e));
                     this.classList.add('popping');
                     pops++;
                     document.getElementById('count').innerText = pops;
@@ -215,17 +214,16 @@
                         setTimeout(() => {
                             document.getElementById('pop-counter').style.display = 'none';
                             transition('page2', 'page3');
-                            playMusic("PggP0Aa8H8I"); // Your specific request audio
+                            playMusic("PggP0Aa8H8I"); 
                         }, 500);
                     }
                     setTimeout(() => this.remove(), 200);
                 };
 
                 p2.appendChild(b);
-                setTimeout(() => { if(b.parentNode) b.remove(); }, 7000);
-            }, 1000);
+                setTimeout(() => { if(b.parentNode) b.remove(); }, 6000);
+            }, 800);
         }
     </script>
 </body>
-</html>
 </html>
