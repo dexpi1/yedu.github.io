@@ -99,7 +99,7 @@
         }
 
         .balloon {
-            position: absolute; width: 60px; height: 80px;
+            position: absolute; width: 50px; height: 70px;
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             cursor: pointer; z-index: 5;
             animation: floatUp var(--duration) linear infinite;
@@ -115,6 +115,19 @@
         @keyframes popOut {
             0% { transform: scale(1); }
             100% { transform: scale(0); opacity: 0; }
+        }
+
+        /* Confetti Styles */
+        .confetti {
+            position: absolute;
+            width: 10px; height: 10px;
+            z-index: 15;
+            animation: confettiFall 4s ease-in forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
         #pop-counter {
@@ -133,7 +146,7 @@
 <body>
 
     <div class="bg-canvas"></div>
-    <div id="pop-counter" style="display:none">Pops: <span id="count">0</span>/5</div>
+    <div id="pop-counter" style="display:none">Balloons Popped: <span id="count">0</span>/5</div>
 
     <div id="page1" class="page active">
         <div class="glass-card">
@@ -144,10 +157,11 @@
 
     <div id="page2" class="page">
         <div class="glass-card">
-            <div class="big-text">Happy Birthday!</div>
-            <div class="love-text">I LOVE YOU</div>
+            <div class="big-text">Happyyy Birthdayyyy Yeduu!</div>
+            <div class="love-text">I LOVE YOU 8 QUINTILIION (minimum)</div>
             <p style="color: white; opacity: 0.8;">Pop 5 balloons for your final gift...</p>
         </div>
+        
     </div>
 
     <div id="page3" class="page">
@@ -161,8 +175,6 @@
 
     <script>
         let pops = 0;
-        // This is a direct MP3 link to the Pixabay Pop sound
-        const popSound = new Audio('https://cdn.pixabay.com/audio/2022/03/15/audio_513735607b.mp3');
         let balloonInterval;
 
         function startVibe() {
@@ -191,6 +203,20 @@
             }, 1000);
         }
 
+        function createConfetti() {
+            const colors = ['#ff4d6d', '#ff85a1', '#ffccd5', '#ffffff', '#ffd700'];
+            for (let i = 0; i < 100; i++) {
+                const c = document.createElement('div');
+                c.className = 'confetti';
+                c.style.left = Math.random() * 100 + 'vw';
+                c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                c.style.animationDelay = Math.random() * 3 + 's';
+                c.style.opacity = Math.random();
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 6000);
+            }
+        }
+
         function spawnBalloons() {
             const p2 = document.getElementById('page2');
             const colors = ['#ff4d6d', '#ff85a1', '#ffccd5', '#c9184a'];
@@ -199,12 +225,10 @@
                 const b = document.createElement('div');
                 b.className = 'balloon';
                 b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                b.style.left = Math.random() * 80 + 'vw';
-                b.style.setProperty('--duration', (3 + Math.random() * 3) + 's');
+                b.style.left = Math.random() * 85 + 'vw';
+                b.style.setProperty('--duration', (4 + Math.random() * 3) + 's');
                 
                 b.onclick = function() {
-                    popSound.currentTime = 0;
-                    popSound.play().catch(e => console.log("Sound error: ", e));
                     this.classList.add('popping');
                     pops++;
                     document.getElementById('count').innerText = pops;
@@ -214,15 +238,16 @@
                         setTimeout(() => {
                             document.getElementById('pop-counter').style.display = 'none';
                             transition('page2', 'page3');
-                            playMusic("PggP0Aa8H8I"); 
+                            createConfetti();
+                            playMusic("HqxhfRuTs8E"); // Updated final song link
                         }, 500);
                     }
                     setTimeout(() => this.remove(), 200);
                 };
 
                 p2.appendChild(b);
-                setTimeout(() => { if(b.parentNode) b.remove(); }, 6000);
-            }, 800);
+                setTimeout(() => { if(b.parentNode) b.remove(); }, 7000);
+            }, 1000);
         }
     </script>
 </body>
